@@ -3,8 +3,8 @@
 
 import streamlit as st
 from dotenv import load_dotenv
+from utils import init_resources, generate_response
 import warnings
-from utils import initialize_model_and_data, generate_response
 
 # Ignorer les avertissements pour des logs plus clairs
 warnings.filterwarnings("ignore")
@@ -13,18 +13,20 @@ warnings.filterwarnings("ignore")
 load_dotenv()
 
 # Configuration de la page Streamlit
-st.set_page_config(page_title="Document Q&A", layout="wide")
+st.set_page_config(page_title="Chattez avec un document", layout="wide")
 
-# Fonction pour initialiser les modèles et les données (mise en cache)
+# Initialisation des ressources avec mise en cache
 @st.cache_resource
-def init_resources():
-    return initialize_model_and_data()
+def load_resources():
+    """
+    Fonction pour charger les ressources initiales avec caching Streamlit.
+    """
+    return init_resources("./docs/presentation-vps.md")
 
-# Initialiser les ressources nécessaires
-retriever, chat_prompt_template, model, documents = init_resources()
+retriever, chat_prompt_template, model, documents = load_resources()
 
 # Interface utilisateur
-st.title("🗂️ Document Q&A Chat")
+st.title("🗂️ Chattez avec un document")
 st.write("Posez des questions sur le document chargé.")
 
 # Champ de saisie pour la question
@@ -43,5 +45,11 @@ if query:
 # Option pour afficher un résumé des fragments
 if st.checkbox("Afficher le résumé du document chargé"):
     st.write("### Résumé des fragments :")
-    for i, doc in enumerate(documents[:5]):  # Affichage limité à 5 fragments
-        st.write(f"**Fragment {i + 1}** : {doc.page_content}")
+    for i, doc in enumerate(documents[:5]):  # Limite l'affichage à 5 fragments
+        st.write(f"**Fragment {i + 1}** : {doc}")
+
+# Bouton pour afficher tous les fragments
+if st.button("Afficher tous les fragments"):
+    st.write("### Liste complète des fragments :")
+    for i, doc in enumerate(documents):  # Afficher tous les fragments
+        st.write(f"**Fragment {i + 1}** : {doc}")

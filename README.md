@@ -6,10 +6,34 @@ Ce programme permet de poser des questions sur un document préalablement charg�
 - Une interface web interactive via Streamlit avec `app.py`.
 
 
-## Stratégie de chunking appliqué à du Markdown
+## Stratégie de chunking efficace appliquée à du Markdown avec **`MarkdownTextSplitter`**
+
+Un article complet est dédié  à [La stratégie de chunking avec MarkdownTextSplitter ](./01-Doc/01-documentation.md) 
 
 
-### **`MarkdownTextSplitter`**
+
+
+## Logique métier dans ```utils.py```
+
+
+``` mermaid:
+
+
+graph TD
+    A[init_resources] -->|Appelle| B[initialize_openai_key]
+    A -->|Charge et découpe| C[load_and_split_document]
+    A -->|Crée la base vectorielle| D[create_vector_store]
+    A -->|Configure le modèle et les prompts| E[setup_templates_and_model]
+    C -->|Fournit les fragments| D
+    D -->|Récupère les documents pertinents| F[generate_response]
+    F -->|Retourne la réponse| G[Application]
+
+
+
+
+```
+
+
 
 
 
@@ -95,7 +119,7 @@ streamlit run app.py
 ---
 
 ## 📄 Fonctionnement général :
-1. Le document source (`state_of_the_union.txt`) est chargé et segmenté en fragments pour permettre une recherche efficace.
+1. Le document source (`presentation-VPS.md`) est chargé et segmenté en fragments pour permettre une recherche efficace.
 2. Une base vectorielle est construite à partir de ces fragments pour rechercher les parties pertinentes du document.
 3. L'utilisateur pose une question via l'interface (CLI ou Streamlit).
 4. Les fragments pertinents sont récupérés et utilisés comme contexte pour générer une réponse à l'aide du modèle de chat.
