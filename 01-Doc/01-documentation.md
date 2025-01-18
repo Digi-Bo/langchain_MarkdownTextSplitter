@@ -7,15 +7,24 @@
 2. **Éviter les coupures qui interrompent des idées ou phrases importantes**.
 3. **Réduire les chevauchements inutiles pour optimiser la pertinence des fragments**.
 
-Voici une explication détaillée de la stratégie de la fonction `load_and_split_document`. Cette fonction se concentre sur le découpage et l'optimisation des fragments de texte à partir d'un document Markdown, tout en respectant la structure logique et en évitant les fragments inutiles ou incohérents.
+Voici une explication détaillée de la stratégie de les fonctions `MarkdownTextSplitter` et `RecursiveCharacterTextSplitter`. Ces fonctions se concentrent sur le découpage et l'optimisation des fragments de texte à partir d'un document Markdown, tout en respectant la structure logique et en évitant les fragments inutiles ou incohérents.
 
 ---
 
-### **Objectif global**
-- Charger un document Markdown.
-- Le découper en fragments de taille raisonnable tout en respectant la structure logique (titres, sous-titres, paragraphes).
-- Supprimer les fragments non significatifs (trop courts ou vides).
-- Fusionner les fragments courts avec leurs voisins pour garantir un contexte sémantique suffisant.
+### Nos objectifs : 
+
+1. **Préservation de la structure logique :**
+   - Les séparateurs Markdown (`##`, `###`) sont prioritaires dans le découpage pour maintenir la hiérarchie du texte.
+
+2. **Optimisation des tailles de fragments :**
+   - Le processus garantit que chaque fragment est suffisamment long pour fournir un contexte utile, sans dépasser les limites de taille des modèles LLM.
+
+3. **Élimination des déchets :**
+   - Les fragments inutiles sont éliminés pour éviter des résultats inutiles ou redondants.
+
+4. **Fusion adaptative :**
+   - Les fragments courts mais significatifs sont combinés avec leurs voisins, tout en respectant la cohérence du texte.
+
 
 ---
 
@@ -129,20 +138,3 @@ while i < len(meaningful_fragments):
 
 5. **Fusion :**
    - Les fragments courts sont combinés avec leurs voisins pour maintenir un contexte sémantique.
-
----
-
-### **Stratégie globale**
-
-1. **Préservation de la structure logique :**
-   - Les séparateurs Markdown (`##`, `###`) sont prioritaires dans le découpage pour maintenir la hiérarchie du texte.
-
-2. **Optimisation des tailles de fragments :**
-   - Le processus garantit que chaque fragment est suffisamment long pour fournir un contexte utile, sans dépasser les limites de taille des modèles LLM.
-
-3. **Élimination des déchets :**
-   - Les fragments inutiles sont éliminés pour éviter des résultats inutiles ou redondants.
-
-4. **Fusion adaptative :**
-   - Les fragments courts mais significatifs sont combinés avec leurs voisins, tout en respectant la cohérence du texte.
-
