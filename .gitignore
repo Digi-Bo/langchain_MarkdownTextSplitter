@@ -1,0 +1,35 @@
+# Ignorer l'environnement virtuel
+env/
+env/*
+
+# Ignorer ce dossier de la doc
+00-Remarques/
+
+
+# Ignorer les fichiers générés par Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Ignorer les fichiers de configuration et secrets
+*.env
+*.env.*
+
+# Ignorer les fichiers de log
+*.log
+
+# Ignorer les fichiers de sauvegarde ou temporaires
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Ignorer les fichiers spécifiques aux IDE
+.idea/
+.vscode/
+*.iml
+
+# Ignorer les bases de données locales (par exemple, SQLite)
+*.sqlite3
+db.sqlite3
