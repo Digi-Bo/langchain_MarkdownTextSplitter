@@ -1,5 +1,4 @@
-# Optimisation du découpage en fragments de texte en markdown
-
+# Découper efficacement le Markdown en fragment pour une stratégie RAG optimisée
 
 ## Les points clés 
 
