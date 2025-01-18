@@ -16,7 +16,7 @@ Un article complet est dédié  à [La stratégie de chunking avec MarkdownTextS
 ## Logique métier dans ```utils.py```
 
 
-``` mermaid:
+``` mermaid
 
 
 graph TD
